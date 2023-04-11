@@ -10,6 +10,11 @@ pipeline {
         sh 'docker build -t myimage:latest .'
       }
     }
+    stage('Login') {
+      steps {
+        sh 'echo $DOCKERHUB_CREDENTIALS_PSW | docker login -u $DOCKERHUB_CREDENTIALS_USR'
+      }
+    }
     stage('tag') {
       steps {
         sh 'docker tag myimage:latest shahharshil/myimage'
