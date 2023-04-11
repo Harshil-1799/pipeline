@@ -1,25 +1,24 @@
- pipeline {
-    agent any
-  
+pipeline {
+  agent any
+
   environment {
-    DOCKERHUB_CREDENTIALS= credentials('docker')
-    }
-  }  
+    DOCKERHUB_CREDENTIALS = credentials('docker')
+  }
   stages {
     stage('Build') {
       steps {
-	sh 'docker build -t myimage:latest .'
+        sh 'docker build -t myimage:latest .'
       }
     }
-    
     stage('tag') {
       steps {
-	sh 'docker tag myimage:latest shahharshil/myimage'
-        }
+        sh 'docker tag myimage:latest shahharshil/myimage'
       }
-    stage('push') {
+    }
+    stage('Push') {
       steps {
-	sh 'docker push shahharshil/myimage'
+        sh 'docker push shahharshil/myimage'
+      }
     }
   }
 }
